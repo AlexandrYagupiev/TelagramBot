@@ -1,0 +1,16 @@
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.csproj.AssemblyReference.cache
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.AssemblyInfoInputs.cache
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.AssemblyInfo.cs
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.csproj.CoreCompileInputs.cache
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\BotTest.exe
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\BotTest.deps.json
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\BotTest.runtimeconfig.json
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\BotTest.runtimeconfig.dev.json
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\BotTest.dll
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\BotTest.pdb
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Проекты\Bot\BotTest\BotTest\bin\Debug\netcoreapp3.1\Telegram.Bot.dll
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.csproj.CopyComplete
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.dll
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.pdb
+D:\Проекты\Bot\BotTest\BotTest\obj\Debug\netcoreapp3.1\BotTest.genruntimeconfig.cache
