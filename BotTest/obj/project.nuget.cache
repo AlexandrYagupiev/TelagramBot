@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+PzAOhel8wRbpchTREosXcyKdJkU8ZZh4USiVtFDrmyHWA0805MF95M6JyssT3T2nozbIadOeX9qVM9HiAbaJw==",
+  "dgSpecHash": "Tt92uDOa2bV/rGxq50In8y3XD8Q44M2b7P9T7c8QdKKMo47tn6rC0V6PBktp8rbGhaQasqUOmlRQjPgBI+948Q==",
   "success": true,
-  "projectFilePath": "D:\\Проекты\\Bot\\BotTest\\BotTest\\BotTest.csproj",
+  "projectFilePath": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\siagh\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\siagh\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

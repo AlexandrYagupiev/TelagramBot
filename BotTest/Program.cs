@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Threading;
+using Telegram.Bot.Types.InputFiles;
 
 namespace BotTest
 {
@@ -20,7 +21,6 @@ namespace BotTest
         static void Main(string[] args)
         {
             client = new TelegramBotClient(Token) { Timeout = TimeSpan.FromSeconds(10) };
-            client = new TelegramBotClient(Token);
             client.StartReceiving();
             var me = client.GetMeAsync().Result;
             client.OnMessage += OnMessageHandler;
@@ -28,28 +28,17 @@ namespace BotTest
             client.StopReceiving();
         }
 
-        private static async void DownloadFile(string fileId, string path)          
-        {
-
-        }
-
-        //private static async void GetMedia(object sender, MessageEventArgs e, Telegram.Bot.Types.InputMediaPhoto inputMedia)
-        //{
-        //    var test = client.GetFileAsync(e.Message.Photo[e.Message.Photo.Count() - 1].FileId);
-        //    var download_url = @"https://api.telegram.org/file/bot<1905082601:AAELZdNrpxAV9F61wHuiT0z-3icgIVCzcvI>/" + test.Result.FilePath;
-        //    using (WebClient client = new WebClient())
-        //    {
-        //        client.DownloadFile(new Uri(download_url), @"c:\NewCompanyPicure.png");
-        //    }
-        //}
-
 
         private static async void OnMessageHandler(object sender, MessageEventArgs e)
-        {          
-            var VehicleType = "";
-            var Description = "";
-            var Price = "";
-            string ImagePath=null;
+        {
+            // Скачать фотку
+            //var t = await client.GetFileAsync(e.Message.Photo[4].FileId);
+            //var b = System.IO.File.Create(t.FilePath);
+            //await client.DownloadFileAsync(t.FilePath, b);
+            //b.Close();
+            var photoPath = @"C:\Users\siagh\Desktop\Git\TelagramBot\BotTest\bin\Debug\netcoreapp3.1\photos\file_3.jpg";
+            var c = new InputOnlineFile(System.IO.File.OpenRead(photoPath));
+            var k= await client.SendPhotoAsync(chatId: e.Message.Chat.Id, c);
             if (e.Message.Text != null)
             {
                 Console.WriteLine($"Пользователь под Ником: {e.Message.Chat.Username} прислал сообщение {e.Message.Text}");
@@ -72,8 +61,7 @@ namespace BotTest
                            await client.SendTextMessageAsync(
                            chatId: e.Message.Chat.Id,
                            text: "Отправьте фото",
-                           replyMarkup: GetButtonsSend());
-                           VehicleType = e.Message.Text;                          
+                           replyMarkup: GetButtonsSend());                       
                 }
                 else if(e.Message.Text == "Отправить")
                 {                     
@@ -81,14 +69,7 @@ namespace BotTest
                         chatId: e.Message.Chat.Id,
                         text: "Отправьте фото",
                         replyMarkup: GetButtonsPhoto());                
-                }
-                else if(e.Message.Text == "Отправить фото")
-                {
-                            await client.SendTextMessageAsync(
-                            chatId: e.Message.Chat.Id,
-                            text: "Отправьте фото",
-                            replyMarkup: GetButtonsSend());
-                }                                          
+                }                                                
                 else
                 {
                 await client.SendTextMessageAsync(e.Message.Chat.Id, $"Пожалуйста введите корректную команду", replyMarkup: GetButtonsStart());

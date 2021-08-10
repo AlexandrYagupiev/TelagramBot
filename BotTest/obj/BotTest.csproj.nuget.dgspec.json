@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Проекты\\Bot\\BotTest\\BotTest\\BotTest.csproj": {}
+    "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj": {}
   },
   "projects": {
-    "D:\\Проекты\\Bot\\BotTest\\BotTest\\BotTest.csproj": {
+    "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Проекты\\Bot\\BotTest\\BotTest\\BotTest.csproj",
+        "projectUniqueName": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj",
         "projectName": "BotTest",
-        "projectPath": "D:\\Проекты\\Bot\\BotTest\\BotTest\\BotTest.csproj",
+        "projectPath": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj",
         "packagesPath": "C:\\Users\\siagh\\.nuget\\packages\\",
-        "outputPath": "D:\\Проекты\\Bot\\BotTest\\BotTest\\obj\\",
+        "outputPath": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siagh\\AppData\\Roaming\\NuGet\\NuGet.Config",
