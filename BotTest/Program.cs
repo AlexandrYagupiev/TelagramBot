@@ -36,9 +36,10 @@ namespace BotTest
             //var b = System.IO.File.Create(t.FilePath);
             //await client.DownloadFileAsync(t.FilePath, b);
             //b.Close();
-            var photoPath = @"C:\Users\siagh\Desktop\Git\TelagramBot\BotTest\bin\Debug\netcoreapp3.1\photos\file_3.jpg";
-            var c = new InputOnlineFile(System.IO.File.OpenRead(photoPath));
-            var k= await client.SendPhotoAsync(chatId: e.Message.Chat.Id, c);
+            // Отправка фотки
+            //var photoPath = @"C:\Users\siagh\Desktop\Git\TelagramBot\BotTest\bin\Debug\netcoreapp3.1\photos\file_3.jpg";
+            //var c = new InputOnlineFile(System.IO.File.OpenRead(photoPath));
+            //var k= await client.SendPhotoAsync(chatId: e.Message.Chat.Id, c);
             if (e.Message.Text != null)
             {
                 Console.WriteLine($"Пользователь под Ником: {e.Message.Chat.Username} прислал сообщение {e.Message.Text}");
@@ -49,7 +50,6 @@ namespace BotTest
                         text: "Что вы хотите продать ?",
                         replyMarkup: GetButtonsApplication());                
                 }
-
                 else if(e.Message.Text == "Список заявок")
                 {
                          await client.SendTextMessageAsync(
