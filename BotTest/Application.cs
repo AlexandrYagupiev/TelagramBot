@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Text;
 
@@ -19,8 +20,9 @@ namespace BotTest
 
         public ProductCategory ProductCategory { get; set; }
 
-        public Bitmap Bitmap { get; set; }
+        public string PhotoPath { get; set; }
 
+        [Key]
         public Guid Guid { get; set; }
     }
 }

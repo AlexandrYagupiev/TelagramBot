@@ -26,6 +26,11 @@ namespace BotTest
             client.OnMessage += OnMessageHandler;
             Console.ReadLine();
             client.StopReceiving();
+
+
+
+            
+
         }
 
 
