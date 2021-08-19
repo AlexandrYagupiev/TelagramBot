@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BotTest
 {
-    public enum ProductCategory
+    public enum ProductCategoryModel
     {
         Notebooks,
         ComputerPeripherals

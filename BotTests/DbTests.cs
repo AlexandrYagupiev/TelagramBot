@@ -9,14 +9,16 @@ namespace BotTests
         [SetUp]
         public void Setup()
         {
+            aplicationContext = new AplicationContext(@"Server=DESKTOP-4C6PQII\SQLEXPRESS;Database=botDbTest;Trusted_Connection=True;");
         }
+
+        private AplicationContext aplicationContext;
 
         [Test]
         public void ApplicationAddToDb()
         {
-         var aplicationContext =  new AplicationContext(@"Server=DESKTOP-4C6PQII\SQLEXPRESS;Database=botDb;Trusted_Connection=True;");
-         var aplication = new Application();
-         aplication.ProductCategory = ProductCategory.Notebooks;
+         var aplication = new ApplicationModel();
+         aplication.ProductCategory = ProductCategoryModel.Notebooks;
          aplication.ProductName = "HP 23";
          var entityEntry =aplicationContext.Applications.Add(aplication);
          aplicationContext.SaveChanges();

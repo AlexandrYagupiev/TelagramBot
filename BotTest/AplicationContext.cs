@@ -7,7 +7,7 @@ namespace BotTest
 {
     public class AplicationContext : DbContext
     {
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<ApplicationModel> Applications { get; set; }
 
         public AplicationContext(string strConnection):base(new DbContextOptionsBuilder().UseSqlServer(strConnection).Options)
         {

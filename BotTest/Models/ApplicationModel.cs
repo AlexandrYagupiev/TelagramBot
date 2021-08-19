@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BotTest
 {
-    public class Application
+    public class ApplicationModel
     {
         public string ShortDescription { get; set; }
 
@@ -16,11 +16,11 @@ namespace BotTest
 
         public string Heading { get; set; }
 
-        public User User { get; set; }
+        public UserModel User { get; set; }
 
-        public ProductCategory ProductCategory { get; set; }
+        public ProductCategoryModel ProductCategory { get; set; }
 
-        public string PhotoPath { get; set; }
+        public List<PhotoPathModel> PhotoPathes  { get; set; }
 
         [Key]
         public Guid Guid { get; set; }
