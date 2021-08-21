@@ -7,6 +7,8 @@ namespace BotTest
     public enum State
     {
         WaitingForPushButtonsStart,
+        WaitingInstitutionCreationOrViewing,
+        WaitingForGroupOfGoodsAdd,
         WaitingForGroupOfGoods,
         WaitingForProductName,
         WaitingForProductDescription,
