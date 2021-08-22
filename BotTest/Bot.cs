@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BotTest
 {
@@ -12,7 +13,7 @@ namespace BotTest
     {
         private readonly TelegramBotClient telegramBotClient;
 
-        private IState state { get; set; }
+        private State state { get; set; }
 
         public Bot(TelegramBotClient telegramBotClient)
         {
@@ -22,24 +23,45 @@ namespace BotTest
         }
         private void TelegramBotClientOnMessage(object sender, MessageEventArgs e)
         {
-            state.Action(e);
-            if(state.PossibleStates.Count==1)
-            {
-                state = state.PossibleStates.First().Value;
-            }
-            else
-            {
-                //if()
-                //{
+            //state.Action(e);
+            //if(state.PossibleStates.Count==1)
+            //{
+            //    state = state.PossibleStates.First().Value;
+            //}
+            //else
+            //{
+            //    //if()
+            //    //{
 
-                //}
-            }
+            //    //}
+            //}
 
         }
 
-        public void SendTwoButtons()
+        public void SendButtons(long chatId,string messageText,params string[] buttonNames)
         {
-            
+            var task = telegramBotClient.SendTextMessageAsync(
+            chatId: chatId,
+            text: messageText,
+            replyMarkup: GetButtons(buttonNames));
+            task.Wait();
+        }
+
+        private static IReplyMarkup GetButtons(string[] buttonNames)
+        {
+            var list = new List<KeyboardButton>();
+            for (int i=0;i<buttonNames.Length;i++)
+            {
+             list.Add(new KeyboardButton {Text=buttonNames[i]});
+            }
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                  list
+                },
+                ResizeKeyboard = true
+            };
         }
 
         public void Dispose()
