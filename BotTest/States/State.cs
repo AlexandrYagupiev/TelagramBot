@@ -9,15 +9,20 @@ namespace BotTest.States
     {
         protected readonly Bot bot;
 
+        protected readonly long chatId;
+
+        protected abstract void PreDoAction();
         protected abstract void DoAction(MessageEventArgs e);
 
         private bool IsDoCalled=false;
 
         protected State NextState=null;
 
-        public State(Bot bot)
+        public State(Bot bot,long chatId)
         {
             this.bot = bot;
+            this.chatId = chatId;
+            PreDoAction();
         }
 
         public abstract State Back(); 
@@ -35,7 +40,9 @@ namespace BotTest.States
 
             if (!IsDoCalled) 
             throw new Exception("Do не был вызван, вызовите Do");
+
             return NextState;
+
         }
 
     }

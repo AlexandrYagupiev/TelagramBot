@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using Telegram.Bot.Args;
 
-namespace BotTest.States.List
+namespace BotTest.States.Application
 {
-    public class ListState : State
+    public class WaitingCategoryState : State
     {
-        public ListState(Bot bot, long chatId) : base(bot,chatId)
-        {
-            
-        }
+        private readonly ApplicationModel application;
 
+        public WaitingCategoryState(Bot bot,ApplicationModel application,long chatId) : base(bot,chatId)
+        {
+            this.application = application;
+        }
         public override State Back()
         {
-            throw new NotImplementedException();
+            return new WaitingApplicationOrListClickState(bot,chatId);
         }
 
         protected override void DoAction(MessageEventArgs e)
-        {
-           
+        {         
+            application.ProductCategory = Enum.Parse<ProductCategoryModel>(e.Message.Text);
+            NextState = new WaitingNameState(bot,application,chatId);           
         }
 
         protected override void PreDoAction()

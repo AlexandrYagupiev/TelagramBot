@@ -7,7 +7,7 @@ namespace BotTest.States
 {
     public class StartState : State
     {
-        public StartState(Bot bot) : base (bot)
+        public StartState(Bot bot,long chatId) : base (bot,chatId)
         {
            
         }
@@ -17,10 +17,14 @@ namespace BotTest.States
             return this;
         }
 
-        protected override void DoAction(MessageEventArgs e)
+        protected override void PreDoAction()
         {
-            bot.SendButtons(e.Message.Chat.Id,"Вы хотите создать или посмотреть заявки ?", "Создать заявку", "Список заявок");
-            NextState = new ShowButtonsApplicationAndListState(bot);
+          
+        }
+
+        protected override void DoAction(MessageEventArgs e)
+        {          
+            NextState = new WaitingApplicationOrListClickState(bot,chatId);
         }
     }
 }
