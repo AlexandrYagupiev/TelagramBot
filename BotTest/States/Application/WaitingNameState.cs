@@ -20,14 +20,13 @@ namespace BotTest.States.Application
 
         protected override void DoAction(MessageEventArgs e)
         {
-            bot.SendButtons(e.Message.Chat.Id, "Введите краткое описание товара", "Назад");
             application.ProductName = e.Message.Text;
             NextState = new WaitingNameState(bot,application,chatId);
         }
 
         protected override void PreDoAction()
         {
-            throw new NotImplementedException();
+            bot.SendButtons(chatId, "Введите краткое описание товара", Commands.Back);
         }
     }
 }

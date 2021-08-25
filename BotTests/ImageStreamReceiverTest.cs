@@ -12,10 +12,10 @@ namespace BotTests
         [SetUp]
         public void Setup()
         {
-            imageStreamReceiver = new ImageStreamReceiver("\\test");
+            imageStreamReceiver = new ImagePathFormatter("\\test");
         }
 
-        private ImageStreamReceiver imageStreamReceiver;
+        private ImagePathFormatter imageStreamReceiver;
 
         [Test]
         public void ImageSaves()

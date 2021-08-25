@@ -5,29 +5,30 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States.Application
 {
-    public class WaitingDescription : State
+    public class WaitingPriceState : State
     {
         private readonly ApplicationModel application;
 
-        public WaitingDescription(Bot bot, ApplicationModel application, long chatId) : base(bot, chatId)
+        public WaitingPriceState(Bot bot, ApplicationModel application, long chatId) : base(bot, chatId)
         {
             this.application = application;
         }
-
         public override State Back()
         {
-            return new WaitingNameState(bot,application,chatId);
+            throw new Exception();
+            //return new WaitingPhotoPathState(bot, application, chatId,);
         }
 
         protected override void DoAction(MessageEventArgs e)
         {
             application.ProductName = e.Message.Text;
-            NextState = new WaitingNameState(bot,application,chatId);
+            throw new Exception();
+            //NextState = new WaitingApplicationOrListClickState(bot, application, chatId);
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, "Введите краткое описание товара", Commands.Back);
+            bot.SendButtons(chatId, "Введите стоймость товара", Commands.Back);
         }
     }
 }

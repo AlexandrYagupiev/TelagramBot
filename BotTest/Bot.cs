@@ -38,6 +38,18 @@ namespace BotTest
 
         }
 
+        public void DownlodPhotosByMessage(MessageEventArgs e)
+        {
+            //for(e.Message.)
+            //{
+            //var t = await telegramBotClient.GetFileAsync(e.Message.Photo[4].FileId);
+            //var b = System.IO.File.Create(t.FilePath);
+            //await client.DownloadFileAsync(t.FilePath, b);
+            //b.Close();
+            //}
+
+        }
+
         public void SendButtons(long chatId,string messageText,params string[] buttonNames)
         {
             var task = telegramBotClient.SendTextMessageAsync(
