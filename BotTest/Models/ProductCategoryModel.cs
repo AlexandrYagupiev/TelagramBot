@@ -7,6 +7,10 @@ namespace BotTest
     public enum ProductCategoryModel
     {
         Notebooks,
-        ComputerPeripherals
+        ComputerPeripherals,
+        Appliances,
+        Smartphones,
+        TvTechnique,
+        Instruments
     }
 }

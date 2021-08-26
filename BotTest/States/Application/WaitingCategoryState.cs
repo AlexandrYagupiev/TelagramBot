@@ -29,7 +29,7 @@ namespace BotTest.States.Application
             var buttonList = new List<string>();
             buttonList.AddRange(Enum.GetNames(typeof(ProductCategoryModel)));
             buttonList.Add(Commands.Back);
-            bot.SendButtons(chatId, "Выберете категорию товара", buttonList.ToArray());
+            bot.SendButtons(chatId, Commands.SelectProductCategory, buttonList.ToArray());
         }
     }
 }

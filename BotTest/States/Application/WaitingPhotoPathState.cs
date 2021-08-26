@@ -17,7 +17,7 @@ namespace BotTest.States.Application
         }
         public override State Back()
         {
-            return new WaitingDescription(bot, application, chatId);
+            return new WaitingDescriptionState(bot, application, chatId);
         }
 
         protected override void DoAction(MessageEventArgs e)
@@ -33,7 +33,7 @@ namespace BotTest.States.Application
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, "Отправьте фото товара или завершите отправку фото",Commands.AndOfGettingPhoto, Commands.Back);
+            bot.SendButtons(chatId, Commands.SubmitPhotoProductOrGettingPhoto, Commands.AndOfGettingPhoto, Commands.Back);
         }
     }
 }

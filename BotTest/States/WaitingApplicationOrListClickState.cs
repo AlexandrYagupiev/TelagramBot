@@ -9,7 +9,7 @@ namespace BotTest.States
 {
     public class WaitingApplicationOrListClickState : State
     {
-        public WaitingApplicationOrListClickState(Bot bot,long chatId) : base (bot,chatId)
+        public WaitingApplicationOrListClickState(Bot bot, long chatId) : base(bot, chatId)
         {
          
         }

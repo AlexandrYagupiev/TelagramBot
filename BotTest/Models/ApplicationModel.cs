@@ -14,7 +14,11 @@ namespace BotTest
 
         public decimal Price { get; set; }
 
-        public string Heading { get; set; }
+        public string Description { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string Email { get; set; }
 
         public UserModel User { get; set; }
 

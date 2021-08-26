@@ -5,28 +5,29 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States.Application
 {
-    public class WaitingNameState : State
+    public class WaitingPhoneNumberState : State
     {
         private readonly ApplicationModel application;
 
-        public WaitingNameState(Bot bot, ApplicationModel application,long chatId) : base(bot,chatId)
+        public WaitingPhoneNumberState(Bot bot, ApplicationModel application, long chatId) : base(bot, chatId)
         {
             this.application = application;
         }
+
         public override State Back()
         {
-            return new WaitingCategoryState(bot,application,chatId);
+            return new WaitingPriceState(bot, application, chatId);
         }
 
         protected override void DoAction(MessageEventArgs e)
         {
-            application.ProductName = e.Message.Text;
-            NextState = new WaitingNameState(bot,application,chatId);
+            application.PhoneNumber = e.Message.Text;
+            NextState = new WaitingEmailState(bot, application, chatId);
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.EnterNameProduct, Commands.Back);
+            bot.SendButtons(chatId, Commands.EnterPhoneNumber, Commands.Back);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace BotTests
         [Test]
         public void ImageSaves()
         {
-           var stream = imageStreamReceiver.GetStream(Guid.NewGuid(), 0, "jpg");
+           //var stream = imageStreamReceiver.GetStream(Guid.NewGuid(), 0, "jpg");
         }
     }
 }

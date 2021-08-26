@@ -7304,19 +7304,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\siagh\\.nuget\\packages\\": {}
+    "C:\\Users\\it015\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj",
+      "projectUniqueName": "D:\\TelagramBot\\BotTest\\BotTest.csproj",
       "projectName": "BotTest",
-      "projectPath": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\BotTest.csproj",
-      "packagesPath": "C:\\Users\\siagh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\siagh\\Desktop\\Git\\TelagramBot\\BotTest\\obj\\",
+      "projectPath": "D:\\TelagramBot\\BotTest\\BotTest.csproj",
+      "packagesPath": "C:\\Users\\it015\\.nuget\\packages\\",
+      "outputPath": "D:\\TelagramBot\\BotTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\siagh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\it015\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7374,7 +7374,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -21,14 +21,14 @@ namespace BotTest.States.Application
 
         protected override void DoAction(MessageEventArgs e)
         {
-            application.ProductName = e.Message.Text;
+            application.Price = Convert.ToDecimal(e.Message.Text);
             throw new Exception();
             //NextState = new WaitingApplicationOrListClickState(bot, application, chatId);
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, "Введите стоймость товара", Commands.Back);
+            bot.SendButtons(chatId, Commands.EnterPriceProduct, Commands.Back);
         }
     }
 }

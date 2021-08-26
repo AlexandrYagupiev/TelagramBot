@@ -14,12 +14,12 @@ namespace BotTest.States.List
 
         public override State Back()
         {
-            throw new NotImplementedException();
+            return new WaitingApplicationOrListClickState(bot, chatId);
         }
 
         protected override void DoAction(MessageEventArgs e)
         {
-           
+            NextState = new GroupedListState(bot, chatId);
         }
 
         protected override void PreDoAction()
@@ -27,7 +27,7 @@ namespace BotTest.States.List
             var buttonList = new List<string>();
             buttonList.AddRange(Enum.GetNames(typeof(ProductCategoryModel)));
             buttonList.Add(Commands.Back);
-            bot.SendButtons(chatId, "Выберете категорию товара", buttonList.ToArray());
+            bot.SendButtons(chatId, Commands.SelectProductCategory, buttonList.ToArray());
         }
     }
 }
