@@ -8,7 +8,6 @@ namespace BotTest
 {
     public class ApplicationModel
     {
-        public string ShortDescription { get; set; }
 
         public string ProductName { get; set; }
 
@@ -17,9 +16,7 @@ namespace BotTest
         public string Description { get; set; }
 
         public string PhoneNumber { get; set; }
-
-        public string Email { get; set; }
-
+      
         public UserModel User { get; set; }
 
         public ProductCategoryModel ProductCategory { get; set; }

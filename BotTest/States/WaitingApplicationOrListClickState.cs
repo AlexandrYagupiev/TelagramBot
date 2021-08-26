@@ -9,14 +9,18 @@ namespace BotTest.States
 {
     public class WaitingApplicationOrListClickState : State
     {
-        public WaitingApplicationOrListClickState(Bot bot, long chatId) : base(bot, chatId)
+        private readonly UserModel userModel;
+
+        public WaitingApplicationOrListClickState(Bot bot, long chatId, UserModel userModel) : base(bot, chatId)
         {
-         
+            this.userModel = userModel;
         }
 
         public override State Back()
         {
-            return new StartState(bot,chatId);
+            //return new StartState(bot,chatId,userModel);
+            throw new Exception();
+
         }
 
         protected override void DoAction(MessageEventArgs e)
@@ -24,7 +28,7 @@ namespace BotTest.States
            
             if (e.Message.Text==Commands.CreateApplication)
             {             
-                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId);
+                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,userModel);
             }
             else if(e.Message.Text == Commands.ListOfApplications)
             {

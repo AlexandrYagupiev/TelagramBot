@@ -13,5 +13,7 @@ namespace BotTest
         public string PhotoPath { get; set; }
 
         public int NumberInUserFolder { get; set; }
+
+        public int SizeNumber { get; set; }
     }
 }

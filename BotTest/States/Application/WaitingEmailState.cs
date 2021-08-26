@@ -8,20 +8,22 @@ namespace BotTest.States.Application
     public class WaitingEmailState : State
     {
         private readonly ApplicationModel application;
+        private readonly UserModel userModel;
 
-        public WaitingEmailState(Bot bot, ApplicationModel application, long chatId) : base(bot, chatId)
+        public WaitingEmailState(Bot bot, ApplicationModel application, long chatId,UserModel userModel) : base(bot, chatId)
         {
             this.application = application;
+            this.userModel = userModel;
         }
         public override State Back()
         {
-            return new WaitingPhoneNumberState(bot, application, chatId);
+            return new WaitingPhoneNumberState(bot, application, chatId, userModel);
         }
 
         protected override void DoAction(MessageEventArgs e)
-        {
-            application.Email = e.Message.Text;
-            NextState = new PreviewApplicationState(bot, application, chatId);
+        {         
+            NextState = new PreviewApplicationState(bot, application, chatId, userModel);
+            userModel.Email = e.Message.Text;
         }
 
         protected override void PreDoAction()

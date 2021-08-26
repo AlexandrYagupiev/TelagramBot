@@ -14,7 +14,7 @@ namespace BotTest
 
         public static string OutputApplications = "Вывести заявку";
 
-        public static string AndOfGettingPhoto = "Завершить отправку фото";
+        public static string EndOfGettingPhoto = "Завершить отправку фото";
 
         public static string SubmitPhotoProductOrGettingPhoto = "Отправьте фото товара или завершите отправку фото";
 

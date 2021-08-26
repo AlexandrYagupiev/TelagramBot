@@ -9,10 +9,13 @@ namespace BotTest
     {
         public DbSet<ApplicationModel> Applications { get; set; }
 
+        public DbSet<UserModel> Users { get; set; }
+
+        public DbSet<PhotoPathModel> Photos { get; set; }
+
         public AplicationContext(string strConnection):base(new DbContextOptionsBuilder().UseSqlServer(strConnection).Options)
         {
-            this.Database.EnsureCreated();
-            
+            this.Database.EnsureCreated();           
         }
     }
 }

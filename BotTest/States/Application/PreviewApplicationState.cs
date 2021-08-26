@@ -8,19 +8,21 @@ namespace BotTest.States.Application
     public class PreviewApplicationState : State
     {
         private readonly ApplicationModel application;
+        private readonly UserModel userModel;
 
-        public PreviewApplicationState(Bot bot, ApplicationModel application, long chatId) : base(bot, chatId)
+        public PreviewApplicationState(Bot bot, ApplicationModel application, long chatId, UserModel userModel) : base(bot, chatId)
         {
             this.application = application;
+            this.userModel = userModel;
         }
         public override State Back()
         {
-            return new WaitingEmailState(bot, application, chatId);
+            return new WaitingEmailState(bot, application, chatId,userModel);
         }
 
         protected override void DoAction(MessageEventArgs e)
         {
-            NextState = new WaitingApplicationOrListClickState(bot, chatId);
+            NextState = new WaitingApplicationOrListClickState(bot, chatId, userModel);
         }
 
         protected override void PreDoAction()

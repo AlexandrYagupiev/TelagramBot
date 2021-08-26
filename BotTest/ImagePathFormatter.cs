@@ -14,9 +14,9 @@ namespace BotTest
             this.imageStoragePath = imageStoragePath;
         }
 
-        public string GetPath(Guid userGuid, int numberInUserFolder, string extension)
+        public string GetPath(Guid userGuid, int numberInUserFolder,int sizeNumber, string extension)
         {
-         return ($"{imageStoragePath}\\{userGuid}\\{numberInUserFolder}.{extension}");
+         return ($"{imageStoragePath}\\{userGuid}\\{numberInUserFolder}_{sizeNumber}.{extension}");
         }
     }
 }

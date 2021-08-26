@@ -8,32 +8,38 @@ namespace BotTest.States.Application
     public class WaitingPhotoPathState : State
     {
         private readonly ApplicationModel application;
-        private readonly ImagePathFormatter imagePathFormatter;
+        private readonly UserModel userModel;
 
-        public WaitingPhotoPathState(Bot bot, ApplicationModel application, long chatId,ImagePathFormatter imagePathFormatter) : base(bot, chatId)
+        public WaitingPhotoPathState(Bot bot, ApplicationModel application, long chatId,UserModel userModel) : base(bot, chatId)
         {
             this.application = application;
-            this.imagePathFormatter = imagePathFormatter;
+            this.userModel = userModel;
         }
         public override State Back()
         {
-            return new WaitingDescriptionState(bot, application, chatId);
+            return new WaitingDescriptionState(bot, application, chatId,userModel);
         }
 
         protected override void DoAction(MessageEventArgs e)
         {
             
-            if(e.Message.Text==Commands.AndOfGettingPhoto)
+            if(e.Message.Text==Commands.EndOfGettingPhoto)
             {
-              NextState = new WaitingPriceState(bot, application, chatId);
+              NextState = new WaitingPriceState(bot, application, chatId, userModel);
             }
-            //application.PhotoPathes = "";
-          
+            else
+            {
+             var listPhoto = bot.DownlodPhotosByMessage(e, userModel);
+             application.PhotoPathes.AddRange(listPhoto);
+             NextState = new WaitingPhotoPathState(bot, application, chatId, userModel);
+            }
+   
+
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.SubmitPhotoProductOrGettingPhoto, Commands.AndOfGettingPhoto, Commands.Back);
+            bot.SendButtons(chatId, Commands.SubmitPhotoProductOrGettingPhoto, Commands.EndOfGettingPhoto, Commands.Back);
         }
     }
 }
