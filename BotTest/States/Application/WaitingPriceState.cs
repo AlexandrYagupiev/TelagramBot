@@ -23,14 +23,13 @@ namespace BotTest.States.Application
 
         protected override void DoAction(MessageEventArgs e)
         {
-            application.Price = Convert.ToDecimal(e.Message.Text);
-            throw new Exception();
-            //NextState = new WaitingApplicationOrListClickState(bot, application, chatId, userModel);
+            application.Price = Convert.ToDecimal(e.Message.Text);        
+            NextState = new WaitingPhoneNumberState(bot, application, chatId, userModel);
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.EnterPriceProduct, Commands.Back);
+            bot.SendMessageWithButtons(chatId, Messages.EnterPriceProduct, Commands.Back);
         }
     }
 }

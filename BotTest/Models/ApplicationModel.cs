@@ -8,14 +8,11 @@ namespace BotTest
 {
     public class ApplicationModel
     {
-
         public string ProductName { get; set; }
 
         public decimal Price { get; set; }
 
         public string Description { get; set; }
-
-        public string PhoneNumber { get; set; }
       
         public UserModel User { get; set; }
 

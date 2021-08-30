@@ -14,6 +14,7 @@ namespace BotTest.States.List
 
         public override State Back()
         {
+            
             //return new WaitingApplicationOrListClickState(bot, chatId);
         }
 
@@ -27,7 +28,7 @@ namespace BotTest.States.List
             var buttonList = new List<string>();
             buttonList.AddRange(Enum.GetNames(typeof(ProductCategoryModel)));
             buttonList.Add(Commands.Back);
-            bot.SendButtons(chatId, Commands.SelectProductCategory, buttonList.ToArray());
+            bot.SendMessageWithButtons(chatId, Messages.SelectProductCategory, buttonList.ToArray());
         }
     }
 }

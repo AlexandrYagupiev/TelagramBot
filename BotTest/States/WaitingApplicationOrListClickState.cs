@@ -39,7 +39,7 @@ namespace BotTest.States
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, "Вы хотите создать или посмотреть заявки ?", Commands.CreateApplication, Commands.ListOfApplications);
+            bot.SendMessageWithButtons(chatId, "Вы хотите создать или посмотреть заявки ?", Commands.CreateApplication, Commands.ListOfApplications);
         }
     }
 }

@@ -23,13 +23,13 @@ namespace BotTest.States.Application
 
         protected override void DoAction(MessageEventArgs e)
         {
-            application.PhoneNumber = e.Message.Text;
+            application.User.Phone = e.Message.Text;
             NextState = new WaitingEmailState(bot, application, chatId, userModel);
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.EnterPhoneNumber, Commands.Back);
+            bot.SendMessageWithButtons(chatId, Messages.EnterPhoneNumber, Commands.Back);
         }
     }
 }

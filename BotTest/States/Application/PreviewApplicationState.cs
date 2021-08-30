@@ -9,11 +9,13 @@ namespace BotTest.States.Application
     {
         private readonly ApplicationModel application;
         private readonly UserModel userModel;
+        private readonly AplicationContext aplicationContext;
 
-        public PreviewApplicationState(Bot bot, ApplicationModel application, long chatId, UserModel userModel) : base(bot, chatId)
+        public PreviewApplicationState(Bot bot, ApplicationModel application, long chatId, UserModel userModel, AplicationContext aplicationContext) : base(bot, chatId)
         {
             this.application = application;
             this.userModel = userModel;
+            this.aplicationContext = aplicationContext;
         }
         public override State Back()
         {
@@ -22,12 +24,20 @@ namespace BotTest.States.Application
 
         protected override void DoAction(MessageEventArgs e)
         {
-            NextState = new WaitingApplicationOrListClickState(bot, chatId, userModel);
+            if(e.Message.Text==Commands.OK)
+            {
+                aplicationContext.Applications.Add(application);
+                aplicationContext.SaveChanges();
+
+            }
+            NextState = new StartState(bot, chatId, aplicationContext, userModel);
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.FormAndSendApplication, Commands.Back);
+            bot.SendApplicationView(chatId, application);
+            bot.SendPhotos(chatId,application.PhotoPathes);
+            bot.SendMessageWithButtons(chatId, Messages.SatisfiedWithTheApplication, Commands.OK, Commands.Cancel, Commands.Back);
         }
     }
 }

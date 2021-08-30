@@ -31,7 +31,7 @@ namespace BotTest.States.Application
             var buttonList = new List<string>();
             buttonList.AddRange(Enum.GetNames(typeof(ProductCategoryModel)));
             buttonList.Add(Commands.Back);
-            bot.SendButtons(chatId, Commands.SelectProductCategory, buttonList.ToArray());
+            bot.SendMessageWithButtons(chatId, Messages.SelectProductCategory, buttonList.ToArray());
         }
     }
 }

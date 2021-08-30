@@ -23,7 +23,7 @@ namespace BotTest.States.List
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.OutputApplications, Commands.Back);
+            bot.SendMessageWithButtons(chatId, Commands.OutputApplications, Commands.Back);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace BotTest.States.Application
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.SubmitPhotoProductOrGettingPhoto, Commands.EndOfGettingPhoto, Commands.Back);
+            bot.SendMessageWithButtons(chatId, Messages.SubmitPhotoProductOrGettingPhoto, Commands.EndOfGettingPhoto, Commands.Back);
         }
     }
 }

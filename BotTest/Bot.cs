@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
+using File = System.IO.File;
 
 namespace BotTest
 {
@@ -26,6 +29,12 @@ namespace BotTest
             telegramBotClient.OnMessage += TelegramBotClientOnMessage;
             //state = new WaitingForPushButtonsStart();
         }
+
+        internal void SendMessageWithButtons(long chatId, string satisfiedWithTheApplication, object , object oK, string back)
+        {
+            throw new NotImplementedException();
+        }
+
         private void TelegramBotClientOnMessage(object sender, MessageEventArgs e)
         {
             //state.Action(e);
@@ -40,7 +49,6 @@ namespace BotTest
 
             //    //}
             //}
-
         }
 
         public List<PhotoPathModel> DownlodPhotosByMessage(MessageEventArgs e, UserModel userModel)
@@ -62,7 +70,7 @@ namespace BotTest
             return list;
         }
 
-        public void SendButtons(long chatId,string messageText,params string[] buttonNames)
+        public void SendMessageWithButtons(long chatId,string messageText,params string[] buttonNames)
         {
             var task = telegramBotClient.SendTextMessageAsync(
             chatId: chatId,
@@ -86,6 +94,37 @@ namespace BotTest
                 },
                 ResizeKeyboard = true
             };
+        }
+
+        public void SendMessage(long chatId,string message)
+        {
+            var task = telegramBotClient.SendTextMessageAsync(chatId, message);
+            task.Wait();
+        }
+
+        public void SendApplicationView(long chatId, ApplicationModel application)
+        {
+            var result = $"Наименование товара:{application.ProductName}" +
+                $"Категория:{application.ProductCategory}" +
+                $"Описание:{application.Description}" +
+                $"Стоимость:{application.Price}" +
+                $"Номер телефона:{application.User.Phone}" +
+                $"Email:{application.User.Email}" +
+                $"Имя Фамилия:{application.User.FirstName} {application.User.LastName}";
+            var task = telegramBotClient.SendTextMessageAsync(chatId, result);
+            task.Wait();
+        }
+
+        public void SendPhotos(long chatId,List<PhotoPathModel> photoPathModels)
+        {
+            var list = new List<IAlbumInputMedia>();
+            for (var i = 0; i != photoPathModels.Count; i++)
+            {
+                var photoPath = photoPathModels[i];
+                list.Add(new InputMediaPhoto(new InputMedia(File.OpenRead(photoPath.PhotoPath),$"Фото_{i}")));
+            }
+            var task = telegramBotClient.SendMediaGroupAsync(chatId,list);
+            task.Wait();
         }
 
         public void Dispose()

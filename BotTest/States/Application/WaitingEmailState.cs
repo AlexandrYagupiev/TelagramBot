@@ -21,14 +21,15 @@ namespace BotTest.States.Application
         }
 
         protected override void DoAction(MessageEventArgs e)
-        {         
+        {      
+            userModel.Email = e.Message.Text;   
             NextState = new PreviewApplicationState(bot, application, chatId, userModel);
-            userModel.Email = e.Message.Text;
+           
         }
 
         protected override void PreDoAction()
         {
-            bot.SendButtons(chatId, Commands.EnterEmail, Commands.Back);
+            bot.SendMessageWithButtons(chatId, Messages.EnterEmail, Commands.Back);
         }
     }
 }
