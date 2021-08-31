@@ -9,22 +9,26 @@ namespace BotTest.States.Application
     {
         private readonly ApplicationModel application;
         private readonly UserModel userModel;
+        private readonly AplicationContext aplicationContext;
 
-        public WaitingPriceState(Bot bot, ApplicationModel application, long chatId,UserModel userModel) : base(bot, chatId)
+        public WaitingPriceState(Bot bot, ApplicationModel application, long chatId,UserModel userModel,AplicationContext aplicationContext) : base(bot, chatId)
         {
             this.application = application;
             this.userModel = userModel;
-        }
-        public override State Back()
-        {
-            throw new Exception();
-            //return new WaitingPhotoPathState(bot, application, chatId,);
+            this.aplicationContext = aplicationContext;
         }
 
         protected override void DoAction(MessageEventArgs e)
         {
-            application.Price = Convert.ToDecimal(e.Message.Text);        
-            NextState = new WaitingPhoneNumberState(bot, application, chatId, userModel);
+            if(e.Message.Text==Commands.Back)
+            {
+                NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
+            }
+            else if()
+            {
+                application.Price = Convert.ToDecimal(e.Message.Text);
+                NextState = new WaitingPhoneNumberState(bot, application, chatId, userModel, aplicationContext);
+            }
         }
 
         protected override void PreDoAction()

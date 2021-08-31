@@ -11,11 +11,6 @@ namespace BotTest.States.List
         {
 
         }
-        public override State Back()
-        {
-            return new GroupedListState(bot, chatId);
-        }
-
         protected override void DoAction(MessageEventArgs e)
         {
             NextState = new ListState(bot, chatId);

@@ -17,14 +17,8 @@ namespace BotTest.States
             this.userModel = userModel;
         }
 
-        public override State Back()
-        {
-            return this;
-        }
-
         protected override void PreDoAction()
         {
-          
         }
 
         protected override void DoAction(MessageEventArgs e)
@@ -34,9 +28,14 @@ namespace BotTest.States
             if(userModel is null)
             {
               userModel=aplicationContext.Users.Add(new UserModel() {TelegramUserName=chat.Username,FirstName=chat.FirstName,LastName=chat.LastName}).Entity;
-              aplicationContext.SaveChanges();
+              aplicationContext.SaveChanges();   
+              NextState = new WaitingApplicationOrListClickState(bot, chatId,userModel,aplicationContext);
             }
-            NextState = new WaitingApplicationOrListClickState(bot, chatId,userModel);
+            else if(e.Message.Text==Commands.Back)
+            {
+                //NextState = new StartState(bot, application, chatId, userModel);
+            }
+         
         }
     }
 }

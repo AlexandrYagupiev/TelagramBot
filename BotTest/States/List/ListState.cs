@@ -12,12 +12,6 @@ namespace BotTest.States.List
             
         }
 
-        public override State Back()
-        {
-            
-            //return new WaitingApplicationOrListClickState(bot, chatId);
-        }
-
         protected override void DoAction(MessageEventArgs e)
         {
             NextState = new GroupedListState(bot, chatId);

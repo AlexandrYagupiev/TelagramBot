@@ -9,32 +9,31 @@ namespace BotTest.States.Application
     {
         private readonly ApplicationModel application;
         private readonly UserModel userModel;
+        private readonly AplicationContext aplicationContext;
 
-        public WaitingPhotoPathState(Bot bot, ApplicationModel application, long chatId,UserModel userModel) : base(bot, chatId)
+        public WaitingPhotoPathState(Bot bot, ApplicationModel application, long chatId,UserModel userModel, AplicationContext aplicationContext) : base(bot, chatId)
         {
             this.application = application;
             this.userModel = userModel;
-        }
-        public override State Back()
-        {
-            return new WaitingDescriptionState(bot, application, chatId,userModel);
+            this.aplicationContext = aplicationContext;
         }
 
         protected override void DoAction(MessageEventArgs e)
-        {
-            
+        {          
             if(e.Message.Text==Commands.EndOfGettingPhoto)
             {
-              NextState = new WaitingPriceState(bot, application, chatId, userModel);
+              NextState = new WaitingPriceState(bot, application, chatId, userModel, aplicationContext);
             }
-            else
+            else if(e.Message.Text==Commands.Back)
+            {
+             NextState = new WaitingDescriptionState(bot, application, chatId, userModel, aplicationContext);
+            }
+            else if()
             {
              var listPhoto = bot.DownlodPhotosByMessage(e, userModel);
              application.PhotoPathes.AddRange(listPhoto);
-             NextState = new WaitingPhotoPathState(bot, application, chatId, userModel);
+             NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
             }
-   
-
         }
 
         protected override void PreDoAction()

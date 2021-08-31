@@ -25,8 +25,6 @@ namespace BotTest.States
             PreDoAction();
         }
 
-        public abstract State Back(); 
-
         public void Do(MessageEventArgs e)
         {
             IsDoCalled = true;

@@ -17,20 +17,21 @@ namespace BotTest.States.Application
             this.userModel = userModel;
             this.aplicationContext = aplicationContext;
         }
-        public override State Back()
-        {
-            return new WaitingEmailState(bot, application, chatId,userModel);
-        }
 
         protected override void DoAction(MessageEventArgs e)
         {
-            if(e.Message.Text==Commands.OK)
+            if (e.Message.Text == Commands.OK)
             {
                 aplicationContext.Applications.Add(application);
                 aplicationContext.SaveChanges();
+                NextState = new StartState(bot, chatId, aplicationContext, userModel);
 
             }
-            NextState = new StartState(bot, chatId, aplicationContext, userModel);
+            else if (e.Message.Text == Commands.Back)
+            {
+                NextState = new WaitingEmailState(bot, application, chatId, userModel,aplicationContext);
+            }
+            
         }
 
         protected override void PreDoAction()
