@@ -24,14 +24,16 @@ namespace BotTest.States.Application
             {
                 aplicationContext.Applications.Add(application);
                 aplicationContext.SaveChanges();
-                NextState = new StartState(bot, chatId, aplicationContext, userModel);
-
+                NextState = new WaitingApplicationOrListClickState(bot, chatId,userModel, aplicationContext);
             }
             else if (e.Message.Text == Commands.Back)
             {
                 NextState = new WaitingEmailState(bot, application, chatId, userModel,aplicationContext);
             }
-            
+            else
+            {
+                bot.SendMessage(chatId,Messages.CommandNotRecognized);
+            }
         }
 
         protected override void PreDoAction()

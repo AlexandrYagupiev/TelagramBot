@@ -51,7 +51,13 @@ namespace BotTest
             //}
         }
 
-        public List<PhotoPathModel> DownlodPhotosByMessage(MessageEventArgs e, UserModel userModel)
+        /// <summary>
+        /// Скачивает фото из принятого сообщения, если фото нет возврат пустого листа
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        public List<PhotoPathModel> DownloadPhotosByMessage(MessageEventArgs e, UserModel userModel)
         {
             var list = new List<PhotoPathModel>();
 

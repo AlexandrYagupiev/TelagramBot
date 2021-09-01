@@ -24,7 +24,11 @@ namespace BotTest.States.Application
             {
                 NextState = new WaitingCategoryState(bot, application, chatId, userModel, aplicationContext);
             }
-            else if ()
+            else if(e.Message.Text.Length<100)
+            {
+                bot.SendMessage(chatId, Messages.TooBigString);
+            }
+            else
             {
                 application.ProductName = e.Message.Text;
                 NextState = new WaitingNameState(bot, application, chatId, userModel, aplicationContext);

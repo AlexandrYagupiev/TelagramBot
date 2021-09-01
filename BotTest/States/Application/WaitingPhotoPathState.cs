@@ -11,7 +11,7 @@ namespace BotTest.States.Application
         private readonly UserModel userModel;
         private readonly AplicationContext aplicationContext;
 
-        public WaitingPhotoPathState(Bot bot, ApplicationModel application, long chatId,UserModel userModel, AplicationContext aplicationContext) : base(bot, chatId)
+        public WaitingPhotoPathState(Bot bot, ApplicationModel application, long chatId, UserModel userModel, AplicationContext aplicationContext) : base(bot, chatId)
         {
             this.application = application;
             this.userModel = userModel;
@@ -19,20 +19,27 @@ namespace BotTest.States.Application
         }
 
         protected override void DoAction(MessageEventArgs e)
-        {          
-            if(e.Message.Text==Commands.EndOfGettingPhoto)
+        {
+            if (e.Message.Text == Commands.EndOfGettingPhoto)
             {
-              NextState = new WaitingPriceState(bot, application, chatId, userModel, aplicationContext);
+                NextState = new WaitingPriceState(bot, application, chatId, userModel, aplicationContext);
             }
-            else if(e.Message.Text==Commands.Back)
+            else if (e.Message.Text == Commands.Back)
             {
-             NextState = new WaitingDescriptionState(bot, application, chatId, userModel, aplicationContext);
+                NextState = new WaitingDescriptionState(bot, application, chatId, userModel, aplicationContext);
             }
-            else if()
+            else
             {
-             var listPhoto = bot.DownlodPhotosByMessage(e, userModel);
-             application.PhotoPathes.AddRange(listPhoto);
-             NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
+                var listOfPhotos = bot.DownloadPhotosByMessage(e, userModel);
+                if (listOfPhotos.Count!=0)
+                {
+                    application.PhotoPathes.AddRange(listOfPhotos);
+                    NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
+                }
+                else
+                {
+                    bot.SendMessage(chatId, Messages.NoPhotos);
+                }
             }
         }
 

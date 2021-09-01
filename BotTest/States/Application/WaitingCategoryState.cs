@@ -24,10 +24,14 @@ namespace BotTest.States.Application
             {
                 NextState = new WaitingApplicationOrListClickState(bot, chatId, userModel, aplicationContext);
             }
-            else if ()
+            else if (Enum.TryParse<ProductCategoryModel>(e.Message.Text,out var result))
             {
-                application.ProductCategory = Enum.Parse<ProductCategoryModel>(e.Message.Text);
+                application.ProductCategory = result;
                 NextState = new WaitingNameState(bot, application, chatId, userModel, aplicationContext);
+            }
+            else
+            {
+                bot.SendMessage(chatId, Messages.NoCategory);
             }        
         }
 

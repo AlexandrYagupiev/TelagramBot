@@ -24,7 +24,11 @@ namespace BotTest.States.Application
             {
                 NextState = new WaitingNameState(bot, application, chatId, userModel, aplicationContext);
             }
-            else if ()
+            else if(e.Message.Text.Length<1000)
+            {
+                bot.SendMessage(chatId, Messages.DescriptionSize);
+            }
+            else
             {
                 application.Description = e.Message.Text;
                 NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);

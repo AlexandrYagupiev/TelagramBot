@@ -10,8 +10,14 @@ namespace BotTest.States
         protected readonly Bot bot;
 
         protected readonly long chatId;
-
+        /// <summary>
+        /// PreDoAction действие перед срабатыванием триггера
+        /// </summary>
         protected abstract void PreDoAction();
+        /// <summary>
+        /// DoAction обрабатывает триггер
+        /// </summary>
+        /// <param name="e"></param>
         protected abstract void DoAction(MessageEventArgs e);
 
         private bool IsDoCalled=false;
@@ -24,13 +30,19 @@ namespace BotTest.States
             this.chatId = chatId;
             PreDoAction();
         }
-
+        /// <summary>
+        /// Do вызваеться пользовательским кодом, является триггером
+        /// </summary>
+        /// <param name="e"></param>
         public void Do(MessageEventArgs e)
         {
             IsDoCalled = true;
             DoAction(e);
         }
-
+        /// <summary>
+        /// Вызываеться обязательно после Do, переход к следующему State
+        /// </summary>
+        /// <returns></returns>
         public State Next()
         {
             if (NextState == null)

@@ -24,10 +24,21 @@ namespace BotTest.States.Application
             {
                 NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
             }
-            else if()
+            else if(decimal.TryParse(e.Message.Text,out var result))
             {
-                application.Price = Convert.ToDecimal(e.Message.Text);
-                NextState = new WaitingPhoneNumberState(bot, application, chatId, userModel, aplicationContext);
+                if (result < 0)
+                {
+                    bot.SendMessage(chatId, Messages.AboveZero);
+                }
+                else
+                {
+                    application.Price = result;
+                    NextState = new WaitingPhoneNumberState(bot, application, chatId, userModel, aplicationContext);
+                }
+            }
+            else
+            {
+                bot.SendMessage(chatId, Messages.IndicateTheCorrectCost);
             }
         }
 
