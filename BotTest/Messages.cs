@@ -37,7 +37,7 @@ namespace BotTest
         public static string TooBigString = "Количество символов в строке было больше 100";
 
         public static string DescriptionSize = "Количество символов в строке было больше 1000";
-
+   
         public static string NoCategory = "Категория отсутствует";
     }
 }

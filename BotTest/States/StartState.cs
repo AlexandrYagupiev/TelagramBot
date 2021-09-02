@@ -8,28 +8,32 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States
 {
-    public class WaitingApplicationOrListClickState : State
-    {
-        private readonly UserModel userModel;
+    public class StartState : State
+    {   
         private readonly AplicationContext aplicationContext;
 
-        public WaitingApplicationOrListClickState(Bot bot, long chatId, UserModel userModel, AplicationContext aplicationContext) : base(bot, chatId)
-        {
-            this.userModel = userModel;
+        public StartState(Bot bot, long chatId, AplicationContext aplicationContext) : base(bot, chatId)
+        {         
             this.aplicationContext = aplicationContext;
         }
 
 
         protected override void DoAction(MessageEventArgs e)
         {
-            CheckUser(e);
+            CheckUser(e);          
             if (e.Message.Text==Commands.CreateApplication)
             {             
-                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,userModel,aplicationContext);
+                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,new UserModel,aplicationContext);
             }
             else if(e.Message.Text == Commands.ListOfApplications)
             {
-                NextState = new ListState(bot,chatId);
+                var pagination = new Pagination(aplicationContext,(e)=>true,5);
+                NextState = new ListState(bot,chatId,pagination,0,aplicationContext);
+            }
+            else if(e.Message.Text==Commands.ListOfMyApplications)
+            {
+                var pagination = new Pagination(aplicationContext, (t) =>t.User.TelegramUserName==e.Message.Chat.Username, 5);
+                NextState = new ListState(bot, chatId,pagination,0,aplicationContext);
             }
             else 
             {
@@ -53,7 +57,7 @@ namespace BotTest.States
         }
         protected override void PreDoAction()
         {
-            bot.SendMessageWithButtons(chatId, Messages.CreateOrViewApplications, Commands.CreateApplication, Commands.ListOfApplications);
+            bot.SendMessageWithButtons(chatId, Messages.CreateOrViewApplications, Commands.CreateApplication, Commands.ListOfApplications , Commands.ListOfMyApplications);
         }
     }
 }

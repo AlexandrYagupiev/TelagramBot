@@ -23,5 +23,11 @@ namespace BotTest
         public static string Back = "Назад";
 
         public static string Cancel = "Отмена";
+
+        public static string ListOfMyApplications = "Список моих заявок";
+
+        public static string NextPage = "Следующая страница";
+
+        public static string PreviousPage = "Предыдущая страница";
     }
 }
