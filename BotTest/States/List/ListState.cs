@@ -36,9 +36,6 @@ namespace BotTest.States.List
 
         protected override void PreDoAction()
         {
-            //var buttonList = new List<string>();
-            //buttonList.AddRange(Enum.GetNames(typeof(ProductCategoryModel)));
-            //buttonList.Add(Commands.Back);
             if (numberPage==0)
             {
                 bot.SendMessageWithButtons(chatId, Commands.NextPage, Commands.Back);
@@ -50,6 +47,11 @@ namespace BotTest.States.List
             else
             {
                 bot.SendMessageWithButtons(chatId, Commands.PreviousPage, Commands.NextPage, Commands.Back);
+            }
+            var list = pagination.GetPage(numberPage);
+            for (var i=0;i<list.Count;i++)
+            {
+                bot.SendApplicationView(chatId, list[i]);
             }
         }
     }

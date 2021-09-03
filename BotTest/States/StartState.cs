@@ -23,7 +23,7 @@ namespace BotTest.States
             CheckUser(e);          
             if (e.Message.Text==Commands.CreateApplication)
             {             
-                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,new UserModel,aplicationContext);
+                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,new UserModel(),aplicationContext);
             }
             else if(e.Message.Text == Commands.ListOfApplications)
             {
@@ -33,7 +33,12 @@ namespace BotTest.States
             else if(e.Message.Text==Commands.ListOfMyApplications)
             {
                 var pagination = new Pagination(aplicationContext, (t) =>t.User.TelegramUserName==e.Message.Chat.Username, 5);
+                
                 NextState = new ListState(bot, chatId,pagination,0,aplicationContext);
+            }
+            else if(e.Message.Text==Commands.DeleteApplications)
+            {
+                NextState = new DeleteApplication(bot, chatId, aplicationContext);
             }
             else 
             {
@@ -57,7 +62,7 @@ namespace BotTest.States
         }
         protected override void PreDoAction()
         {
-            bot.SendMessageWithButtons(chatId, Messages.CreateOrViewApplications, Commands.CreateApplication, Commands.ListOfApplications , Commands.ListOfMyApplications);
+            bot.SendMessageWithButtons(chatId, Messages.CreateOrViewApplications, Commands.CreateApplication, Commands.ListOfApplications , Commands.ListOfMyApplications,Commands.DeleteApplications);
         }
     }
 }

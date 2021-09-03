@@ -39,5 +39,13 @@ namespace BotTest
         public static string DescriptionSize = "Количество символов в строке было больше 1000";
    
         public static string NoCategory = "Категория отсутствует";
+
+        public static string DeleteApplication = "Заявка успешна удалена";
+
+        public static string ApplicatioNotFound = "Заявка не найдена в базе";
+
+        public static string GuidWrongFormat = "Неверный формат сообщения";
+
+        public static string GuidWrite = "Введите идентификатор услуги";
     }
 }

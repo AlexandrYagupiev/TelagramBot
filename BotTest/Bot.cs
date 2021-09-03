@@ -110,7 +110,8 @@ namespace BotTest
 
         public void SendApplicationView(long chatId, ApplicationModel application)
         {
-            var result = $"Наименование товара:{application.ProductName}" +
+            var result = $"Уникальный идинтификатор заявки:{application.Guid}" +
+                $"Наименование товара:{application.ProductName}" +
                 $"Категория:{application.ProductCategory}" +
                 $"Описание:{application.Description}" +
                 $"Стоимость:{application.Price}" +
