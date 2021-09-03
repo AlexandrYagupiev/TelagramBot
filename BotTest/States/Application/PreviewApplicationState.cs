@@ -24,7 +24,7 @@ namespace BotTest.States.Application
             {
                 aplicationContext.Applications.Add(application);
                 aplicationContext.SaveChanges();
-                NextState = new StartState(bot, chatId,userModel, aplicationContext);
+                NextState = new StartState(bot, chatId, aplicationContext);
             }
             else if (e.Message.Text == Commands.Back)
             {

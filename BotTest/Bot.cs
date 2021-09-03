@@ -27,12 +27,22 @@ namespace BotTest
             this.imagePathFormatter = imagePathFormatter;
             this.aplicationContext = aplicationContext;
             telegramBotClient.OnMessage += TelegramBotClientOnMessage;
-            //state = new WaitingForPushButtonsStart();
+            state = new StartState();
         }
 
-        internal void SendMessageWithButtons(long chatId, string satisfiedWithTheApplication, object , object oK, string back)
+        /// <summary>
+        /// Чек юзера в базе и если его нет, то добавить в базу
+        /// </summary>
+        /// <param name="e"></param>
+        private void CheckUser(MessageEventArgs e)
         {
-            throw new NotImplementedException();
+            var chat = e.Message.Chat;
+            var userModel = aplicationContext.Users.Single(t => t.TelegramUserName == e.Message.Chat.Username);
+            if (userModel is null)
+            {
+                userModel = aplicationContext.Users.Add(new UserModel() { TelegramUserName = chat.Username, FirstName = chat.FirstName, LastName = chat.LastName }).Entity;
+                aplicationContext.SaveChanges();
+            }
         }
 
         private void TelegramBotClientOnMessage(object sender, MessageEventArgs e)

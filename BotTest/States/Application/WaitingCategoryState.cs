@@ -22,7 +22,7 @@ namespace BotTest.States.Application
         {
             if (e.Message.Text == Commands.Back)
             {
-                NextState = new StartState(bot, chatId, userModel, aplicationContext);
+                NextState = new StartState(bot, chatId, aplicationContext);
             }
             else if (Enum.TryParse<ProductCategoryModel>(e.Message.Text,out var result))
             {
