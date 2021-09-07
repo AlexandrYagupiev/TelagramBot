@@ -30,6 +30,17 @@ namespace BotTest
             state = new StartState();
         }
 
+        public void Token()
+        {
+            string token;
+            var exeutingFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var resultinPath = Path.Combine(exeutingFolder, @"\Token.txt");
+            using (StreamReader reader = new StreamReader(resultinPath))
+            {
+                token=reader.ReadToEnd();
+            }
+        }
+
         /// <summary>
         /// Чек юзера в базе и если его нет, то добавить в базу
         /// </summary>
