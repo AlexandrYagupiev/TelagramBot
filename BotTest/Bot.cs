@@ -13,7 +13,7 @@ using File = System.IO.File;
 
 namespace BotTest
 {
-    public class Bot: IDisposable
+    public class Bot : IDisposable
     {
         private readonly TelegramBotClient telegramBotClient;
         private readonly ImagePathFormatter imagePathFormatter;
@@ -21,55 +21,29 @@ namespace BotTest
 
         private State state { get; set; }
 
+        private Dictionary<long, State> chatIdStatePairs;
+
         public Bot(TelegramBotClient telegramBotClient,ImagePathFormatter imagePathFormatter, AplicationContext aplicationContext)
         {
+            this.chatIdStatePairs = new Dictionary<long, State>();
             this.telegramBotClient = telegramBotClient;
             this.imagePathFormatter = imagePathFormatter;
             this.aplicationContext = aplicationContext;
-            telegramBotClient.OnMessage += TelegramBotClientOnMessage;
-            state = new StartState();
-        }
-
-        public void Token()
-        {
-            string token;
-            var exeutingFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var resultinPath = Path.Combine(exeutingFolder, @"\Token.txt");
-            using (StreamReader reader = new StreamReader(resultinPath))
-            {
-                token=reader.ReadToEnd();
-            }
-        }
-
-        /// <summary>
-        /// Чек юзера в базе и если его нет, то добавить в базу
-        /// </summary>
-        /// <param name="e"></param>
-        private void CheckUser(MessageEventArgs e)
-        {
-            var chat = e.Message.Chat;
-            var userModel = aplicationContext.Users.Single(t => t.TelegramUserName == e.Message.Chat.Username);
-            if (userModel is null)
-            {
-                userModel = aplicationContext.Users.Add(new UserModel() { TelegramUserName = chat.Username, FirstName = chat.FirstName, LastName = chat.LastName }).Entity;
-                aplicationContext.SaveChanges();
-            }
+            telegramBotClient.OnMessage += TelegramBotClientOnMessage;          
         }
 
         private void TelegramBotClientOnMessage(object sender, MessageEventArgs e)
         {
-            //state.Action(e);
-            //if(state.PossibleStates.Count==1)
-            //{
-            //    state = state.PossibleStates.First().Value;
-            //}
-            //else
-            //{
-            //    //if()
-            //    //{
-
-            //    //}
-            //}
+            if (chatIdStatePairs.ContainsKey(e.Message.Chat.Id))
+            {
+                chatIdStatePairs[e.Message.Chat.Id].Do(e);
+                chatIdStatePairs[e.Message.Chat.Id] = chatIdStatePairs[e.Message.Chat.Id].Next();
+            }   
+            else
+            {
+                chatIdStatePairs.Add(e.Message.Chat.Id,new StartState(this,e.Message.Chat.Id,aplicationContext));
+            }
+          
         }
 
         /// <summary>

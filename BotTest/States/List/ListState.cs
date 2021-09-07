@@ -5,7 +5,7 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States.List
 {
-    public class ListState : State
+    public class ListState : IdentificatedState
     {
         private readonly Pagination pagination;
         private readonly int numberPage;

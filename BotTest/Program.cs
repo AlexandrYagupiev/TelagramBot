@@ -15,24 +15,16 @@ namespace BotTest
 {
     class Program
     {
-       
+        private static string Token { get; set; } = "1905082601:AAELZdNrpxAV9F61wHuiT0z-3icgIVCzcvI";
         private static TelegramBotClient client;
 
         static void Main(string[] args)
         {
-            client = new TelegramBotClient() { Timeout = TimeSpan.FromSeconds(10) };
+            client = new TelegramBotClient(Token) { Timeout = TimeSpan.FromSeconds(10) };
             client.StartReceiving();
-            var me = client.GetMeAsync().Result;
-            client.OnMessage += OnMessageHandler;
-            Console.ReadLine();
-            client.StopReceiving();
+            var bot = new Bot(client, new ImagePathFormatter(@"\photoStorage"), new AplicationContext(@"Server=DESKTOP-4C6PQII\SQLEXPRESS;Database=botDb;Trusted_Connection=True;"));
+            while (true) ;
         }
-
-        private static async void OnMessageHandler(object sender, MessageEventArgs e)
-        {        
-          
-            
-        }   
 
     }      
 }

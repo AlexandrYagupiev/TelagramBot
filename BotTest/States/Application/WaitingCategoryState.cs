@@ -5,7 +5,7 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States.Application
 {
-    public class WaitingCategoryState : State
+    public class WaitingCategoryState : IdentificatedState
     {
         private readonly ApplicationModel application;
         private readonly UserModel userModel;

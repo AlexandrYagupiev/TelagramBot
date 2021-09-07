@@ -6,7 +6,7 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States
 {
-    public class DeleteApplication : State
+    public class DeleteApplication : IdentificatedState
     {
         private readonly AplicationContext aplicationContext;
 

@@ -9,7 +9,6 @@ namespace BotTest.States
     {
         protected readonly Bot bot;
 
-        protected readonly long chatId;
         /// <summary>
         /// PreDoAction действие перед срабатыванием триггера
         /// </summary>
@@ -24,10 +23,9 @@ namespace BotTest.States
 
         protected State NextState=null;
 
-        public State(Bot bot,long chatId)
+        public State(Bot bot)
         {
             this.bot = bot;
-            this.chatId = chatId;
             PreDoAction();
         }
         /// <summary>

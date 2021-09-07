@@ -8,7 +8,7 @@ using Telegram.Bot.Args;
 
 namespace BotTest.States
 {
-    public class StartState : State
+    public class StartState : IdentificatedState
     {   
         private readonly AplicationContext aplicationContext;
 
@@ -17,12 +17,28 @@ namespace BotTest.States
             this.aplicationContext = aplicationContext;
         }
 
+        /// <summary>
+        /// Чек юзера в базе и если его нет, то добавить в базу
+        /// </summary>
+        /// <param name="e"></param>
+        private UserModel CheckUser(MessageEventArgs e)
+        {
+            var chat = e.Message.Chat;
+            var userModel = aplicationContext.Users.Single(t => t.TelegramUserName == e.Message.Chat.Username);
+            if (userModel is null)
+            {
+                userModel = aplicationContext.Users.Add(new UserModel() { TelegramUserName = chat.Username, FirstName = chat.FirstName, LastName = chat.LastName }).Entity;
+                aplicationContext.SaveChanges();
+            }
+            return userModel;
+        }
+
 
         protected override void DoAction(MessageEventArgs e)
         {         
             if (e.Message.Text==Commands.CreateApplication)
             {             
-                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,new UserModel(),aplicationContext);
+                NextState = new WaitingCategoryState(bot,new ApplicationModel(),chatId,CheckUser(e),aplicationContext);
             }
             else if(e.Message.Text == Commands.ListOfApplications)
             {
