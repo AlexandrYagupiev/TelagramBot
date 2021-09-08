@@ -26,11 +26,16 @@ namespace BotTest.States.Application
             }
             else if(e.Message.Text.Length<100)
             {
+                application.ProductName = e.Message.Text;
+                NextState = new WaitingDescriptionState(bot, application, chatId, userModel, aplicationContext);
+            }
+            else if(e.Message.Text.Length >= 100)
+            {
                 bot.SendMessage(chatId, Messages.TooBigString);
+                NextState = new WaitingNameState(bot, application, chatId, userModel, aplicationContext);
             }
             else
-            {
-                application.ProductName = e.Message.Text;
+            {              
                 NextState = new WaitingNameState(bot, application, chatId, userModel, aplicationContext);
             }
         }

@@ -14,7 +14,7 @@ namespace BotTest
 
         public static string ListOfApplications = "Список заявок";
 
-        public static string DeleteApplications = "Удалиение заявок";
+        public static string DeleteApplications = "Удаление заявок";
 
         public static string OutputApplications = "Вывести заявку";
 

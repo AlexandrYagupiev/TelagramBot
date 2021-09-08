@@ -22,7 +22,7 @@ namespace BotTest
         {
             client = new TelegramBotClient(Token) { Timeout = TimeSpan.FromSeconds(10) };
             client.StartReceiving();
-            var bot = new Bot(client, new ImagePathFormatter(@"\photoStorage"), new AplicationContext(@"Server=DESKTOP-4C6PQII\SQLEXPRESS;Database=botDb;Trusted_Connection=True;"));
+            var bot = new Bot(client, new ImagePathFormatter(@"photoStorage"), new AplicationContext(@"Server=DESKTOP-4C6PQII\SQLEXPRESS;Database=botDb;Trusted_Connection=True;"));
             while (true) ;
         }
 

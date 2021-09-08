@@ -33,12 +33,14 @@ namespace BotTest.States.Application
                 var listOfPhotos = bot.DownloadPhotosByMessage(e, userModel);
                 if (listOfPhotos.Count!=0)
                 {
+                    application.PhotoPathes = new List<PhotoPathModel>();
                     application.PhotoPathes.AddRange(listOfPhotos);
                     NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
                 }
                 else
                 {
                     bot.SendMessage(chatId, Messages.NoPhotos);
+                    NextState = new WaitingPhotoPathState(bot, application, chatId, userModel, aplicationContext);
                 }
             }
         }

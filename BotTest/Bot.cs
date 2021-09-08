@@ -38,10 +38,13 @@ namespace BotTest
             {
                 chatIdStatePairs[e.Message.Chat.Id].Do(e);
                 chatIdStatePairs[e.Message.Chat.Id] = chatIdStatePairs[e.Message.Chat.Id].Next();
+                chatIdStatePairs[e.Message.Chat.Id].PreDo();
             }   
             else
             {
-                chatIdStatePairs.Add(e.Message.Chat.Id,new StartState(this,e.Message.Chat.Id,aplicationContext));
+                var state = new StartState(this, e.Message.Chat.Id, aplicationContext);
+                state.PreDo();
+                chatIdStatePairs.Add(e.Message.Chat.Id,state);
             }
           
         }
@@ -58,14 +61,19 @@ namespace BotTest
 
             for (int i = 0; i < e.Message.Photo.Length; i++)
             {
-                var path = imagePathFormatter.GetPath(userModel.Guid, userModel.LastPhoto.NumberInUserFolder + 1, i, "jpg");
+                var numberInUserFolder = 0;
+                if (userModel.LastPhoto!=null)
+                    numberInUserFolder = userModel.LastPhoto.NumberInUserFolder;
+                var path = imagePathFormatter.GetPath(userModel.Guid, numberInUserFolder + 1, i, "jpg");
+                var entity = aplicationContext.Photos.Add(new PhotoPathModel() {NumberInUserFolder = numberInUserFolder + 1, SizeNumber = i, PhotoPath = path}).Entity;
+                userModel.LastPhoto = entity;
+                list.Add(entity);
                 var getFileTask = telegramBotClient.GetFileAsync(e.Message.Photo[i].FileId);
                 getFileTask.Wait();
                 var stream = File.Create(path);
                 var downloadFileTask = telegramBotClient.DownloadFileAsync(getFileTask.Result.FilePath, stream);
                 downloadFileTask.Wait();
                 stream.Close();
-                list.Add(aplicationContext.Photos.Add(new PhotoPathModel() { NumberInUserFolder= userModel.LastPhoto.NumberInUserFolder + 1 ,SizeNumber=i,PhotoPath=path}).Entity);
                 aplicationContext.SaveChanges();
             }
             return list;
@@ -105,14 +113,17 @@ namespace BotTest
 
         public void SendApplicationView(long chatId, ApplicationModel application)
         {
-            var result = $"Уникальный идинтификатор заявки:{application.Guid}" +
-                $"Наименование товара:{application.ProductName}" +
-                $"Категория:{application.ProductCategory}" +
-                $"Описание:{application.Description}" +
-                $"Стоимость:{application.Price}" +
-                $"Номер телефона:{application.User.Phone}" +
-                $"Email:{application.User.Email}" +
-                $"Имя Фамилия:{application.User.FirstName} {application.User.LastName}";
+            var result =$"Наименование товара:{application.ProductName}\r\n" +
+                $"Категория:{application.ProductCategory}\r\n" +
+                $"Описание:{application.Description}\r\n" +
+                $"Стоимость:{application.Price}\r\n" +
+                $"Номер телефона:{application.User.Phone}\r\n" +
+                $"Email:{application.User.Email}\r\n" +
+                $"Имя Фамилия:{application.User.FirstName} {application.User.LastName}\r\n";
+            if (application.Guid!=null)
+            {
+               result = $"Уникальный идинтификатор заявки:{application.Guid}\r\n" + result;
+            }         
             var task = telegramBotClient.SendTextMessageAsync(chatId, result);
             task.Wait();
         }

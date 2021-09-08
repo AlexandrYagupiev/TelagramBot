@@ -24,7 +24,7 @@ namespace BotTest.States
         private UserModel CheckUser(MessageEventArgs e)
         {
             var chat = e.Message.Chat;
-            var userModel = aplicationContext.Users.Single(t => t.TelegramUserName == e.Message.Chat.Username);
+            var userModel = aplicationContext.Users.SingleOrDefault(t => t.TelegramUserName == e.Message.Chat.Username);
             if (userModel is null)
             {
                 userModel = aplicationContext.Users.Add(new UserModel() { TelegramUserName = chat.Username, FirstName = chat.FirstName, LastName = chat.LastName }).Entity;

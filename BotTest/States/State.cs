@@ -21,19 +21,29 @@ namespace BotTest.States
 
         private bool IsDoCalled=false;
 
+        private bool IsPreDoCalled = false;
+
         protected State NextState=null;
 
         public State(Bot bot)
         {
             this.bot = bot;
+        }
+
+        public void PreDo()
+        {
+            IsPreDoCalled = true;
             PreDoAction();
         }
+
         /// <summary>
         /// Do вызваеться пользовательским кодом, является триггером
         /// </summary>
         /// <param name="e"></param>
         public void Do(MessageEventArgs e)
         {
+            if (!IsPreDoCalled)
+                throw new Exception("PreDoAction не был вызван");
             IsDoCalled = true;
             DoAction(e);
         }
@@ -43,11 +53,11 @@ namespace BotTest.States
         /// <returns></returns>
         public State Next()
         {
-            if (NextState == null)
-            throw new Exception("DoAction не установил NextState");
+            if (!IsDoCalled)
+                throw new Exception("Do не был вызван, вызовите Do");
 
-            if (!IsDoCalled) 
-            throw new Exception("Do не был вызван, вызовите Do");
+            if (NextState == null)
+                throw new Exception("DoAction не установил NextState");
 
             return NextState;
 

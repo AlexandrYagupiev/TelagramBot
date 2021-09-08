@@ -12,11 +12,15 @@ namespace BotTest
         public ImagePathFormatter(string imageStoragePath)
         {
             this.imageStoragePath = imageStoragePath;
+            if (!Directory.Exists(imageStoragePath))
+                Directory.CreateDirectory(imageStoragePath);
         }
 
-        public string GetPath(Guid userGuid, int numberInUserFolder,int sizeNumber, string extension)
+        public string GetPath(Guid userGuid, int numberInUserFolder, int sizeNumber, string extension)
         {
-         return ($"{imageStoragePath}\\{userGuid}\\{numberInUserFolder}_{sizeNumber}.{extension}");
+            if (!Directory.Exists($"{imageStoragePath}\\{userGuid}"))
+                Directory.CreateDirectory($"{imageStoragePath}\\{userGuid}");
+            return ($"{imageStoragePath}\\{userGuid}\\{numberInUserFolder}_{sizeNumber}.{extension}");
         }
     }
 }

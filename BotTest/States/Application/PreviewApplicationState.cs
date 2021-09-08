@@ -33,6 +33,7 @@ namespace BotTest.States.Application
             else
             {
                 bot.SendMessage(chatId,Messages.CommandNotRecognized);
+                NextState = new PreviewApplicationState(bot, application, chatId, userModel, aplicationContext);
             }
         }
 

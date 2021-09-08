@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Telegram.Bot.Args;
 
@@ -37,10 +38,14 @@ namespace BotTest.States.Application
             else if (!CheckNumber(e.Message.Text))
             {
                 bot.SendMessage(chatId, Messages.InvalidNumberFormat);
+                NextState = new WaitingPhoneNumberState(bot, application, chatId, userModel, aplicationContext);
             }
             else
             {
-                application.User.Phone = e.Message.Text;
+                var userModel = aplicationContext.Users.SingleOrDefault(t => t.TelegramUserName == e.Message.Chat.Username);
+                userModel.Phone = e.Message.Text;
+                aplicationContext.SaveChanges();
+                application.User = userModel;
                 NextState = new WaitingEmailState(bot, application, chatId, userModel, aplicationContext);
             }   
         }
