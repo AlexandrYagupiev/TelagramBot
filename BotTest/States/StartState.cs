@@ -47,10 +47,10 @@ namespace BotTest.States
             }
             else if(e.Message.Text==Commands.ListOfMyApplications)
             {
-                var pagination = new Pagination(aplicationContext, (t) =>t.User.TelegramUserName==e.Message.Chat.Username, 5);
-                
+                var pagination = new Pagination(aplicationContext, (t) =>t.User.TelegramUserName==e.Message.Chat.Username, 5);              
                 NextState = new ListState(bot, chatId,pagination,0,aplicationContext);
             }
+
             else if(e.Message.Text==Commands.DeleteApplications)
             {
                 NextState = new DeleteApplication(bot, chatId, aplicationContext);
@@ -58,6 +58,7 @@ namespace BotTest.States
             else 
             {
                 bot.SendMessage(chatId, Messages.CommandNotRecognized);
+                NextState = new StartState(bot,chatId,aplicationContext);
             }
         }      
         protected override void PreDoAction()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace BotTest
 {
@@ -20,7 +21,7 @@ namespace BotTest
 
         public List<ApplicationModel> GetPage(int numberPage)
         {
-            return aplicationContext.Applications.Where(filter).Skip(numberPage*pageSize).Take(pageSize).ToList(); 
+            return aplicationContext.Applications.Include((t)=>t.User).Include((e)=>e.PhotoPathes).Where(filter).Skip(numberPage * pageSize).Take(pageSize).ToList();
         }
     }
 }

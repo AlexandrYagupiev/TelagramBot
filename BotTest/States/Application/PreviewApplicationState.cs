@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Telegram.Bot.Args;
 
@@ -40,7 +41,8 @@ namespace BotTest.States.Application
         protected override void PreDoAction()
         {
             bot.SendApplicationView(chatId, application);
-            bot.SendPhotos(chatId,application.PhotoPathes);
+            var list = application.PhotoPathes.GroupBy(y=>y.NumberInUserFolder,(t)=>t,(z,x)=> application.PhotoPathes.SingleOrDefault(u=>u.SizeNumber==x.Max(t=>t.SizeNumber)&&u.NumberInUserFolder==z)).ToList();
+            bot.SendPhotos(chatId,list);
             bot.SendMessageWithButtons(chatId, Messages.SatisfiedWithTheApplication, Commands.OK, Commands.Cancel, Commands.Back);
         }
     }

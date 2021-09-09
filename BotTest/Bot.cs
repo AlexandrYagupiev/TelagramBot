@@ -58,25 +58,28 @@ namespace BotTest
         public List<PhotoPathModel> DownloadPhotosByMessage(MessageEventArgs e, UserModel userModel)
         {
             var list = new List<PhotoPathModel>();
-
-            for (int i = 0; i < e.Message.Photo.Length; i++)
+            if (e.Message.Photo != null)
             {
                 var numberInUserFolder = 0;
-                if (userModel.LastPhoto!=null)
+                if (userModel.LastPhoto != null)
                     numberInUserFolder = userModel.LastPhoto.NumberInUserFolder;
-                var path = imagePathFormatter.GetPath(userModel.Guid, numberInUserFolder + 1, i, "jpg");
-                var entity = aplicationContext.Photos.Add(new PhotoPathModel() {NumberInUserFolder = numberInUserFolder + 1, SizeNumber = i, PhotoPath = path}).Entity;
-                userModel.LastPhoto = entity;
-                list.Add(entity);
-                var getFileTask = telegramBotClient.GetFileAsync(e.Message.Photo[i].FileId);
-                getFileTask.Wait();
-                var stream = File.Create(path);
-                var downloadFileTask = telegramBotClient.DownloadFileAsync(getFileTask.Result.FilePath, stream);
-                downloadFileTask.Wait();
-                stream.Close();
-                aplicationContext.SaveChanges();
+                for (int i = 0; i < e.Message.Photo.Length; i++)
+                {         
+                    var path = imagePathFormatter.GetPath(userModel.Guid, numberInUserFolder + 1, i, "jpg");
+                    var entity = aplicationContext.Photos.Add(new PhotoPathModel() { NumberInUserFolder = numberInUserFolder + 1, SizeNumber = i, PhotoPath = path }).Entity;
+                    userModel.LastPhoto = entity;
+                    list.Add(entity);
+                    var getFileTask = telegramBotClient.GetFileAsync(e.Message.Photo[i].FileId);
+                    getFileTask.Wait();
+                    var stream = File.Create(path);
+                    var downloadFileTask = telegramBotClient.DownloadFileAsync(getFileTask.Result.FilePath, stream);
+                    downloadFileTask.Wait();
+                    stream.Close();
+                    aplicationContext.SaveChanges();
+                }
             }
             return list;
+
         }
 
         public void SendMessageWithButtons(long chatId,string messageText,params string[] buttonNames)

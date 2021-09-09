@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Telegram.Bot.Args;
 
@@ -52,6 +53,8 @@ namespace BotTest.States.List
             for (var i=0;i<list.Count;i++)
             {
                 bot.SendApplicationView(chatId, list[i]);
+                var listPhoto = new List<PhotoPathModel>() { list[i].PhotoPathes[list[i].PhotoPathes.Max(t => t.SizeNumber)] };
+                bot.SendPhotos(chatId, listPhoto);
             }
         }
     }
