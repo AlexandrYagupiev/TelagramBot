@@ -53,7 +53,7 @@ namespace BotTest.States.List
             for (var i=0;i<list.Count;i++)
             {
                 bot.SendApplicationView(chatId, list[i]);
-                var listPhoto = new List<PhotoPathModel>() { list[i].PhotoPathes[list[i].PhotoPathes.Max(t => t.SizeNumber)] };
+                var listPhoto = list[i].PhotoPathes.GroupBy(y => y.NumberInUserFolder, (t) => t, (z, x) => list[i].PhotoPathes.SingleOrDefault(u => u.SizeNumber == x.Max(t => t.SizeNumber) && u.NumberInUserFolder == z)).ToList();
                 bot.SendPhotos(chatId, listPhoto);
             }
         }

@@ -116,16 +116,16 @@ namespace BotTest
 
         public void SendApplicationView(long chatId, ApplicationModel application)
         {
-            var result =$"Наименование товара:{application.ProductName}\r\n" +
-                $"Категория:{application.ProductCategory}\r\n" +
-                $"Описание:{application.Description}\r\n" +
-                $"Стоимость:{application.Price}\r\n" +
-                $"Номер телефона:{application.User.Phone}\r\n" +
-                $"Email:{application.User.Email}\r\n" +
-                $"Имя Фамилия:{application.User.FirstName} {application.User.LastName}\r\n";
+            var result =$"Наименование товара: {application.ProductName}\r\n" +
+                $"Категория: {application.ProductCategory}\r\n" +
+                $"Описание: {application.Description}\r\n" +
+                $"Стоимость: {application.Price}\r\n" +
+                $"Номер телефона: {application.User.Phone}\r\n" +
+                $"Email: {application.User.Email}\r\n" +
+                $"Имя Фамилия: {application.User.FirstName} {application.User.LastName}\r\n";
             if (application.Guid!=null)
             {
-               result = $"Уникальный идинтификатор заявки:{application.Guid}\r\n" + result;
+               result = $"Уникальный идинтификатор заявки: {application.Guid}\r\n" + result;
             }         
             var task = telegramBotClient.SendTextMessageAsync(chatId, result);
             task.Wait();
@@ -135,9 +135,12 @@ namespace BotTest
         {
             var list = new List<IAlbumInputMedia>();
             for (var i = 0; i != photoPathModels.Count; i++)
-            {
+            { 
                 var photoPath = photoPathModels[i];
-                list.Add(new InputMediaPhoto(new InputMedia(File.OpenRead(photoPath.PhotoPath),$"Фото_{i}")));
+                //if (File.Exists(photoPath.PhotoPath))
+                //{               
+                    list.Add(new InputMediaPhoto(new InputMedia(File.OpenRead(photoPath.PhotoPath), $"Фото_{i}")));
+                //}
             }
             var task = telegramBotClient.SendMediaGroupAsync(chatId,list);
             task.Wait();

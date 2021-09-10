@@ -26,7 +26,8 @@ namespace BotTest.States
                 if (application!=default)
                 {
                     aplicationContext.Applications.Remove(application);
-                    bot.SendMessage(chatId,Messages.DeleteApplication);                
+                    bot.SendMessage(chatId,Messages.DeleteApplication);
+                    aplicationContext.SaveChanges();
                 }
                 else
                 {
