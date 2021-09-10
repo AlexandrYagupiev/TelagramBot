@@ -123,7 +123,7 @@ namespace BotTest
                 $"Номер телефона: {application.User.Phone}\r\n" +
                 $"Email: {application.User.Email}\r\n" +
                 $"Имя Фамилия: {application.User.FirstName} {application.User.LastName}\r\n";
-            if (application.Guid!=null)
+            if (application.Guid.ToString()!= "00000000-0000-0000-0000-000000000000")
             {
                result = $"Уникальный идинтификатор заявки: {application.Guid}\r\n" + result;
             }         
