@@ -116,17 +116,17 @@ namespace BotTest
 
         public void SendApplicationView(long chatId, ApplicationModel application)
         {
-            var result =$"Наименование товара: {application.ProductName}\r\n" +
+            var result = $"Наименование товара: {application.ProductName}\r\n" +
                 $"Категория: {application.ProductCategory}\r\n" +
                 $"Описание: {application.Description}\r\n" +
                 $"Стоимость: {application.Price}\r\n" +
                 $"Номер телефона: {application.User.Phone}\r\n" +
                 $"Email: {application.User.Email}\r\n" +
                 $"Имя Фамилия: {application.User.FirstName} {application.User.LastName}\r\n";
-            if (application.Guid.ToString()!= "00000000-0000-0000-0000-000000000000")
+            if (application.Guid!=Guid.Empty)
             {
-               result = $"Уникальный идинтификатор заявки: {application.Guid}\r\n" + result;
-            }         
+                result = $"Уникальный идинтификатор заявки: {application.Guid}\r\n" + result;
+            }
             var task = telegramBotClient.SendTextMessageAsync(chatId, result);
             task.Wait();
         }
